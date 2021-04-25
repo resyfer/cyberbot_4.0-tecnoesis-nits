@@ -2,6 +2,12 @@
   --neon: #15F4EE;
 }
 
+body {
+  max-height: 100vh;
+  max-width: 100%;
+  overflow: hidden;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -96,6 +102,7 @@ div#rocket-container {
   width: 12%;
   height: 9vh;
   overflow: hidden;
+  cursor: none;
 }
 
 div#rocket-container img {
@@ -107,10 +114,54 @@ div#rocket-container img {
   width: 100%;
 }
 
+div#score {
+  position: absolute;
+  top: 2.5%;
+  left: 50%;
+  -webkit-transform: translate(-50%, 0);
+          transform: translate(-50%, 0);
+  color: var(--neon);
+  font-size: 2rem;
+}
+
 div.box {
-  position: relative;
-  background-color: green;
-  height: 3rem;
+  position: absolute;
+  top: 50%;
+  right: 0;
+  -webkit-transform: translate(0, -50%);
+          transform: translate(0, -50%);
+  height: 4rem;
   aspect-ratio: 1/1;
+  border-radius: 0.4rem;
+  background-color: var(--neon);
+  border: 0.2vh solid #0077ff;
+  -webkit-box-shadow: 0 0 1vh 0 var(--neon);
+          box-shadow: 0 0 1vh 0 var(--neon);
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-animation-name: boulder;
+          animation-name: boulder;
+  -webkit-animation-duration: 5s;
+          animation-duration: 5s;
+  -webkit-animation-timing-function: linear;
+          animation-timing-function: linear;
+}
+
+@-webkit-keyframes boulder {
+  0% {
+    right: 0;
+  }
+  100% {
+    right: 105%;
+  }
+}
+
+@keyframes boulder {
+  0% {
+    right: 0;
+  }
+  100% {
+    right: 105%;
+  }
 }
 /*# sourceMappingURL=index.css.map */
