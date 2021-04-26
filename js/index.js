@@ -1,3 +1,6 @@
+//Start Game
+alert("Dodge the obstacles and help Ball-E! Start Game?");
+
 //Rocket Move
 var rocket = document.getElementById("rocket-container");
 
@@ -16,22 +19,30 @@ setInterval(() => {
 }, 500);
 
 //Boulder Remove After Animation Completion
-var boxDiv = document.getElementsByClassName('box')[0];
-boxDiv.addEventListener('animationend', removeBoulder);
-
-function removeBoulder() {
-  boxDiv.remove();
-  boxDiv = document.getElementsByClassName('box')[0];
-  boxDiv.addEventListener('animationend', removeBoulder);
-}
+setInterval(() => {
+  var boxDivList = document.getElementsByClassName('box');
+  for(var i = 0; i<boxDivList.length; i++) {
+    var left = parseInt(window.getComputedStyle(boxDivList[i]).getPropertyValue('left'));
+    if(left<0) {
+      boxDivList[i].remove();
+      boxDivList = document.getElementsByClassName('box');
+    }
+  }
+}, 500);
 
 //Add Boulders
 var body = document.getElementsByTagName("body")[0];
+var spawnTime = (500/(2.3**(score/40))) + 100;
+var spawnIntervalFuncID;
 
-setInterval(() => {
+spawn();
+
+function spawn() {
+
+  clearInterval(spawnIntervalFuncID);
+
   var boxDiv = document.createElement("div");
   boxDiv.setAttribute("class", "box");
-  
   
   //Random Height for Boulders
   var viewHeight = window.innerHeight;
@@ -41,12 +52,15 @@ setInterval(() => {
   var boulders = document.getElementsByClassName('box');
   var lastBoulder = boulders[boulders.length - 1];
   lastBoulder.style.top = randHeight + "px";
-
   
   //Reducing transition time as time increases
-  var scoreMultiplier = ((1000 - score)/1000)*5;
+  var scoreMultiplier = (7/(2.3**(score/100))) + 0.5;
   lastBoulder.style.animationDuration = scoreMultiplier + 's';
-}, 3000);
+
+  spawnTime = (1500/(2.3**(score/40))) + 100;
+
+  spawnIntervalFuncID = setInterval(spawn, spawnTime);
+};
 
 //Highest Score
 var highScore = localStorage.getItem('highScore');
@@ -78,8 +92,6 @@ function checkCollision(e1, e2) {
   }
   const rect1 = e1 instanceof Element ? e1.getBoundingClientRect() : false;
   const rect2 = e2 instanceof Element ? e2.getBoundingClientRect() : false;
-  
-  console.log(rect1, rect2);
  
   let overlap = false;
  
