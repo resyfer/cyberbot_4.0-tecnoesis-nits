@@ -48,50 +48,6 @@ div#bg-pic-container img {
   z-index: -3;
 }
 
-div#start {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
-  width: 40%;
-  height: 12vh;
-  line-height: 12vh;
-  text-align: center;
-  font-size: 3rem;
-  cursor: pointer;
-  border-top: 0.2rem solid var(--neon);
-  border-bottom: 0.2rem solid var(--neon);
-  color: var(--neon);
-  -webkit-box-shadow: 0 0 0.9rem 0 var(--neon);
-          box-shadow: 0 0 0.9rem 0 var(--neon);
-  font-family: "Courier New", Courier, monospace;
-  font-weight: 550;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-}
-
-div#start:hover {
-  background-color: green;
-  -webkit-transition-duration: 0.3s;
-          transition-duration: 0.3s;
-}
-
-div#start::after {
-  position: absolute;
-  top: 50%;
-  right: 0;
-  -webkit-transform: translate(50%, -50%) rotate(45deg);
-          transform: translate(50%, -50%) rotate(45deg);
-  content: "";
-  height: calc(12vh * 0.7 - 0.15vh);
-  aspect-ratio: 1/1;
-  border-top: 0.2rem solid var(--neon);
-  border-right: 0.2rem solid var(--neon);
-  -webkit-box-shadow: 0 0 0.9rem 0 var(--neon);
-          box-shadow: 0 0 0.9rem 0 var(--neon);
-}
-
 div#rocket-container {
   position: absolute;
   height: 10rem;
