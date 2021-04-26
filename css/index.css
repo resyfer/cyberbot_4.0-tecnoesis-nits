@@ -20,7 +20,7 @@ div#bg-pic-container {
   top: 50%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
   height: 100vh;
   width: 100%;
   overflow: hidden;
@@ -32,7 +32,7 @@ div#bg-pic-container div#bg-pic-shade {
   top: 50%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
   height: 100vh;
   width: 100%;
   background-color: rgba(0, 0, 0, 0.4);
@@ -43,7 +43,7 @@ div#bg-pic-container img {
   top: 50%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
   width: 100%;
   aspect-ratio: 16/9;
   z-index: -3;
@@ -55,7 +55,7 @@ div#rocket-container {
   aspect-ratio: 1/1;
   top: 50%;
   -webkit-transform: translate(-60%, -50%);
-  transform: translate(-60%, -50%);
+          transform: translate(-60%, -50%);
   left: 7.5%;
   cursor: none;
 }
