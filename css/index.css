@@ -443,4 +443,69 @@ div#colorChange span {
   font-size: 2.2rem;
   color: var(--neon);
 }
+
+div#gameOver {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  height: 100vh;
+  width: 100%;
+  z-index: +5;
+  display: none;
+}
+
+div#gameOver p {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  text-align: center;
+  font-size: 2.75rem;
+  color: var(--neon);
+}
+
+div#gameOver div#retry {
+  position: absolute;
+  top: 75%;
+  left: 50%;
+  -webkit-transform: translate(-50%, 0);
+          transform: translate(-50%, 0);
+  color: var(--neon);
+  height: 10vh;
+  aspect-ratio: 4/1;
+  line-height: 9vh;
+  text-align: center;
+  font-size: 1.5rem;
+  cursor: pointer;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  border: 0.2rem solid var(--neon-50);
+}
+
+div#gameOver div#retry:hover {
+  background-color: var(--neon-80);
+  color: black;
+  -webkit-box-shadow: 0 0 0.7rem 0 var(--neon);
+          box-shadow: 0 0 0.7rem 0 var(--neon);
+  -webkit-transition-duration: 0.3s;
+          transition-duration: 0.3s;
+}
+
+div#credits {
+  position: absolute;
+  bottom: 2%;
+  font-size: 1.2rem;
+  color: rgba(255, 255, 0, 0.6);
+  left: 50%;
+  -webkit-transform: translate(-50%, 0);
+          transform: translate(-50%, 0);
+}
+
+div#credits a {
+  text-decoration: none;
+  color: #9c00aa;
+}
 /*# sourceMappingURL=index.css.map */

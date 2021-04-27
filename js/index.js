@@ -9,6 +9,7 @@ if(localStorage.getItem('highScore') == null) {
 }
 
 var spawnIntervalFuncID;
+var scoreIntervalFuncID;
 
 //Add Boulders
 var body = document.getElementsByTagName("body")[0];
@@ -37,7 +38,7 @@ function game() {
     rocket.style.top = e.pageY + 'px';
   });
   
-  setInterval(() => {
+  scoreIntervalFuncID = setInterval(() => {
     score+=1;
     myScore.innerHTML = score;
   }, 500);
@@ -60,10 +61,17 @@ function game() {
     var boxList = document.getElementsByClassName('box');
     for(var i = 0; i<boxList.length; i++) {
       if(checkCollision(boxList[i], rocket) == true) {
-        alert("Your Score: " + score);
+        // alert("Your Score: " + score);
         clearInterval(spawnIntervalFuncID);
+        clearInterval(scoreIntervalFuncID);
+        gameOver();
         setHighScore();
-        location.reload();
+        //location.reload();
+
+        var newBoxArray = document.getElementsByClassName('box');
+        for(var i = 0; i<newBoxArray.length; i++) {
+          newBoxArray[i].remove();
+        }
       }
     }  
   }, 50);
@@ -177,4 +185,23 @@ function colorChange() {
   localStorage.setItem('color', colorIndex);
   ballEBody.style.backgroundImage = bodyColor[colorIndex];
   ballEArm.style.backgroundImage = armColor[colorIndex];
+}
+
+//Game Over
+function gameOver() {
+  var scoreCard = document.getElementById('gameOver');
+  scoreCard.style.display = "block";
+  var scoreCardText= document.getElementById('gameOverText');
+  scoreCardText.innerHTML = `
+Your Score: ${score} <br>
+Best Score: ${parseInt(highScore)}
+  `;
+  rocket.remove();
+  document.getElementById('score').remove();
+  document.getElementById("bg-pic-shade").style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+}
+
+//Retry
+function retry() {
+  location.reload();
 }
