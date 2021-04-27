@@ -1,41 +1,72 @@
-//Start Game
-alert("Dodge the obstacles and help Ball-E! Start Game?");
+//Highest Score
+var highScore = localStorage.getItem('highScore');
+var bestScore = document.getElementById('bestScore');
+if(highScore == null) {
+  bestScore.innerHTML = '0';
+} else {
+  bestScore.innerHTML = highScore;
+}
 
-//Rocket Move
+var spawnIntervalFuncID;
+
+//Add Boulders
+var body = document.getElementsByTagName("body")[0];
+var spawnTime = (500/(2.3**(score/40))) + 100;
 var rocket = document.getElementById("rocket-container");
-
-window.addEventListener('mousemove', e => {
-  rocket.style.left = e.pageX + 'px';
-  rocket.style.top = e.pageY + 'px';
-});
 
 //Score
 var myScore = document.getElementById("myScore");
 var score = parseInt(myScore.innerHTML);
 
-setInterval(() => {
-  score+=1;
-  myScore.innerHTML = score;
-}, 500);
+//Start Game
+function startGame() {
+  document.getElementById("start").remove();
+  document.getElementById("title").remove();
+  document.getElementById("intro").remove();
+  game();
+};
 
-//Boulder Remove After Animation Completion
-setInterval(() => {
-  var boxDivList = document.getElementsByClassName('box');
-  for(var i = 0; i<boxDivList.length; i++) {
-    var left = parseInt(window.getComputedStyle(boxDivList[i]).getPropertyValue('left'));
-    if(left<0) {
-      boxDivList[i].remove();
-      boxDivList = document.getElementsByClassName('box');
+function game() {
+
+  //Rocket Move
+
+  window.addEventListener('mousemove', e => {
+    rocket.style.left = e.pageX + 'px';
+    rocket.style.top = e.pageY + 'px';
+  });
+  
+  setInterval(() => {
+    score+=1;
+    myScore.innerHTML = score;
+  }, 500);
+
+  //Boulder Remove After Animation Completion
+  setInterval(() => {
+    var boxDivList = document.getElementsByClassName('box');
+    for(var i = 0; i<boxDivList.length; i++) {
+      var left = parseInt(window.getComputedStyle(boxDivList[i]).getPropertyValue('left'));
+      if(left<0) {
+        boxDivList[i].remove();
+        boxDivList = document.getElementsByClassName('box');
+      }
     }
-  }
-}, 500);
+  }, 200);
 
-//Add Boulders
-var body = document.getElementsByTagName("body")[0];
-var spawnTime = (500/(2.3**(score/40))) + 100;
-var spawnIntervalFuncID;
+  spawn();
 
-spawn();
+  setInterval(() => {
+    var boxList = document.getElementsByClassName('box');
+    for(var i = 0; i<boxList.length; i++) {
+      if(checkCollision(boxList[i], rocket) == true) {
+        alert("Your Score: " + score);
+        clearInterval(spawnIntervalFuncID);
+        setHighScore();
+        location.reload();
+      }
+    }  
+  }, 200);
+}
+
 
 function spawn() {
 
@@ -62,15 +93,6 @@ function spawn() {
   spawnIntervalFuncID = setInterval(spawn, spawnTime);
 };
 
-//Highest Score
-var highScore = localStorage.getItem('highScore');
-var bestScore = document.getElementById('bestScore');
-if(highScore == null) {
-  bestScore.innerHTML = '0';
-} else {
-  bestScore.innerHTML = highScore;
-}
-
 function setHighScore() { 
   if(highScore == null) {
     localStorage.setItem('highScore', score);
@@ -93,7 +115,7 @@ function checkCollision(e1, e2) {
   const rect1 = e1 instanceof Element ? e1.getBoundingClientRect() : false;
   const rect2 = e2 instanceof Element ? e2.getBoundingClientRect() : false;
  
-  let overlap = false;
+  var overlap = false;
  
   if (rect1 && rect2) {
     overlap = !(
@@ -105,13 +127,3 @@ function checkCollision(e1, e2) {
   }
   return overlap;
 };
-setInterval(() => {
-  var boxList = document.getElementsByClassName('box');
-  for(var i = 0; i<boxList.length; i++) {
-    if(checkCollision(boxList[i], rocket) == true) {
-      alert("Your Score: " + score);
-      setHighScore();
-      location.reload();
-    }
-  }  
-}, 200);
