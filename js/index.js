@@ -1,8 +1,9 @@
 //Highest Score
 var highScore = localStorage.getItem('highScore');
 var bestScore = document.getElementById('bestScore');
-if(highScore == null) {
+if(localStorage.getItem('highScore') == null) {
   bestScore.innerHTML = '0';
+  localStorage.setItem('highScore', 0);
 } else {
   bestScore.innerHTML = highScore;
 }
@@ -95,7 +96,7 @@ function spawn() {
 };
 
 function setHighScore() { 
-  if(highScore == null) {
+  if(localStorage.getItem('highScore') == null) {
     localStorage.setItem('highScore', score);
   } else {
     localStorage.setItem('highScore', Math.max(score, highScore));
@@ -155,10 +156,11 @@ var ballEArm = document.getElementById('arm');
 var ballEColor = localStorage.getItem('color');
 var colorIndex;
 
-if(ballEColor == null) {
-  localStorage.setItem('color', '0');
+if(localStorage.getItem("color") == null) {
+  localStorage.setItem("color", "0");
+  colorIndex = 0;
 } else {
-  colorIndex = parseInt(localStorage.getItem('color'));
+  colorIndex = parseInt(ballEColor);
   ballEBody.style.backgroundImage = bodyColor[colorIndex];
   ballEArm.style.backgroundImage = armColor[colorIndex];
 }
