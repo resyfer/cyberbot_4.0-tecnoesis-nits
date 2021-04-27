@@ -9,6 +9,7 @@ if(localStorage.getItem('highScore') == null) {
 }
 
 var spawnIntervalFuncID;
+var scoreIntervalFuncID;
 
 //Add Boulders
 var body = document.getElementsByTagName("body")[0];
@@ -37,7 +38,7 @@ function game() {
     rocket.style.top = e.pageY + 'px';
   });
   
-  setInterval(() => {
+  scoreIntervalFuncID = setInterval(() => {
     score+=1;
     myScore.innerHTML = score;
   }, 500);
@@ -60,13 +61,20 @@ function game() {
     var boxList = document.getElementsByClassName('box');
     for(var i = 0; i<boxList.length; i++) {
       if(checkCollision(boxList[i], rocket) == true) {
-        alert("Your Score: " + score);
+        // alert("Your Score: " + score);
         clearInterval(spawnIntervalFuncID);
+        clearInterval(scoreIntervalFuncID);
+        gameOver();
         setHighScore();
-        location.reload();
+        //location.reload();
+
+        var newBoxArray = document.getElementsByClassName('box');
+        for(var i = 0; i<newBoxArray.length; i++) {
+          newBoxArray[i].remove();
+        }
       }
     }  
-  }, 100);
+  }, 50);
 }
 
 
@@ -131,23 +139,29 @@ function checkCollision(e1, e2) {
 
 //Change Color
 /*
-  0 - linear-gradient(red, yellow) (Pyro)
-  1 - linear-gradient(rgb(0, 189, 189), rgb(232, 250, 250)) (Anemo)
-  2 - linear-gradient( purple, rgb(175, 168, 175)) (Electro)
+  0 - Pyro
+  1 - Anemo
+  2 - Electro
+  3 - Dendro
+  4 - Mutant Electro
 */
 
 var bodyColor = 
 [
   'linear-gradient(red, yellow)',
   'linear-gradient(rgb(0, 189, 189), rgb(232, 250, 250))',
-  'linear-gradient( purple, rgb(175, 168, 175)'
+  'linear-gradient(purple, rgb(175, 168, 175))',
+  'linear-gradient(rgb(102, 245, 50), rgb(145, 201, 141))',
+  'linear-gradient(rgb(224, 195, 7), rgb(204, 196, 143))'
 ];
 
 var armColor =
 [
   'linear-gradient(to right, red, yellow)',
   'linear-gradient(to right, rgb(0, 189, 189), rgb(232, 250, 250))',
-  'linear-gradient(to right, purple, rgb(175, 168, 175)'
+  'linear-gradient(to right, purple, rgb(175, 168, 175)',
+  'linear-gradient(to right, rgb(102, 245, 50), rgb(145, 201, 141))',
+  'linear-gradient(to right, rgb(224, 195, 7), rgb(204, 196, 143))'
 ]
 
 var ballEBody = document.getElementById('rocket-body');
@@ -167,8 +181,27 @@ if(localStorage.getItem("color") == null) {
 
 function colorChange() {
   colorIndex++;
-  colorIndex%=3;
+  colorIndex%=bodyColor.length;
   localStorage.setItem('color', colorIndex);
   ballEBody.style.backgroundImage = bodyColor[colorIndex];
   ballEArm.style.backgroundImage = armColor[colorIndex];
+}
+
+//Game Over
+function gameOver() {
+  var scoreCard = document.getElementById('gameOver');
+  scoreCard.style.display = "block";
+  var scoreCardText= document.getElementById('gameOverText');
+  scoreCardText.innerHTML = `
+Your Score: ${score} <br>
+Best Score: ${parseInt(highScore)}
+  `;
+  rocket.remove();
+  document.getElementById('score').remove();
+  document.getElementById("bg-pic-shade").style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+}
+
+//Retry
+function retry() {
+  location.reload();
 }
