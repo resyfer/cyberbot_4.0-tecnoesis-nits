@@ -23,6 +23,7 @@ function startGame() {
   document.getElementById("start").remove();
   document.getElementById("title").remove();
   document.getElementById("intro").remove();
+  document.getElementById("colorChange").remove();
   game();
 };
 
@@ -64,7 +65,7 @@ function game() {
         location.reload();
       }
     }  
-  }, 200);
+  }, 100);
 }
 
 
@@ -104,7 +105,6 @@ function setHighScore() {
 }
 
 //Collision Check
-
 function checkCollision(e1, e2) {
   if (e1.length && e1.length > 1) {
     e1 = e1[0];
@@ -127,3 +127,46 @@ function checkCollision(e1, e2) {
   }
   return overlap;
 };
+
+//Change Color
+/*
+  0 - linear-gradient(red, yellow) (Pyro)
+  1 - linear-gradient(rgb(0, 189, 189), rgb(232, 250, 250)) (Anemo)
+  2 - linear-gradient( purple, rgb(175, 168, 175)) (Electro)
+*/
+
+var bodyColor = 
+[
+  'linear-gradient(red, yellow)',
+  'linear-gradient(rgb(0, 189, 189), rgb(232, 250, 250))',
+  'linear-gradient( purple, rgb(175, 168, 175)'
+];
+
+var armColor =
+[
+  'linear-gradient(to right, red, yellow)',
+  'linear-gradient(to right, rgb(0, 189, 189), rgb(232, 250, 250))',
+  'linear-gradient(to right, purple, rgb(175, 168, 175)'
+]
+
+var ballEBody = document.getElementById('rocket-body');
+var ballEArm = document.getElementById('arm');
+
+var ballEColor = localStorage.getItem('color');
+var colorIndex;
+
+if(ballEColor == null) {
+  localStorage.setItem('color', '0');
+} else {
+  colorIndex = parseInt(localStorage.getItem('color'));
+  ballEBody.style.backgroundImage = bodyColor[colorIndex];
+  ballEArm.style.backgroundImage = armColor[colorIndex];
+}
+
+function colorChange() {
+  colorIndex++;
+  colorIndex%=3;
+  localStorage.setItem('color', colorIndex);
+  ballEBody.style.backgroundImage = bodyColor[colorIndex];
+  ballEArm.style.backgroundImage = armColor[colorIndex];
+}

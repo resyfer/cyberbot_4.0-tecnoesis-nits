@@ -404,4 +404,43 @@ div.box {
     right: 200%;
   }
 }
+
+div#colorChange {
+  position: absolute;
+  top: 50%;
+  left: 57.5%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  height: 7.5vh;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  border: 0.2rem solid var(--neon-50);
+  cursor: pointer;
+}
+
+div#colorChange:hover {
+  background-color: var(--neon-80);
+  -webkit-box-shadow: 0 0 0.7rem 0 var(--neon);
+          box-shadow: 0 0 0.7rem 0 var(--neon);
+  -webkit-transition-duration: 0.3s;
+          transition-duration: 0.3s;
+}
+
+div#colorChange:hover span {
+  -webkit-transition-duration: 0.3s;
+          transition-duration: 0.3s;
+  color: black;
+}
+
+div#colorChange span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  font-size: 2.2rem;
+  color: var(--neon);
+}
 /*# sourceMappingURL=index.css.map */
