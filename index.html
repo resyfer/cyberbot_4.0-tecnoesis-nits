@@ -10,10 +10,25 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
-<body>
+<body onload="bodyLoad()">
   <!--
     font-family: 'Poppins', sans-serif;
   -->
+  <div id="loaderContainer">
+    <div id="circleContainer">
+      <div class="circle"></div>
+      <div class="circle"></div>
+      <div class="circle"></div>
+      <div class="circle"></div>
+      <div class="circle"></div>
+      <div class="circle"></div>
+      <div class="circle"></div>
+      <div class="circle"></div>
+    </div>
+    <div id="loading">
+      Loading ...
+    </div>
+  </div>
   <div id="title">Space Maneuver</div>
   <div id="intro">
     Somehow, Ball-E found himself stranded inside an unknown asteroid field.
@@ -40,8 +55,16 @@
     <p id="gameOverEncouragement"></p>
     <div id="retry" onclick="retry()">Retry</div>
   </div>
+  <div id="music" onclick="music()">
+    <span class="material-icons" id="muteOff">volume_up</span>
+    <span class="material-icons" id="muteOn">volume_off</span>
+  </div>
+  <div id="musicCredits">
+    Music:&emsp;Invitation To Windblume - Thorny Benevolence, Genshin Impact, Mihoyo
+  </div>
+  <audio src="music/bg.mp3" id="musicTrack" loop></audio>
   <div id="credits">
-    Made by <a href="https://github.com/resyfer">resyfer (Saurav Pal)</a>
+    Made by <a href="https://github.com/resyfer" target="_blank">resyfer (Saurav Pal)</a>
   </div>
 </body>
   <script src="js/index.js"></script>
