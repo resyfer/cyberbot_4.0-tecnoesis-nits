@@ -42,8 +42,23 @@ var armColor =
   'linear-gradient(to right, rgb(224, 195, 7), rgb(204, 196, 143))'
 ]
 
-
-
+var boulderColor =
+[
+  '#15F4EE',
+  '#FFFF33',
+  '#00FF66',
+  '#FF00FF',
+  '#9D00FF',
+  '#7122FA',
+  '#A5D8F3',
+  '#13CA91',
+  '#F85125',
+  '#EBF875',
+  '#D9EB4B',
+  '#F21A1D',
+  '#7FFF00',
+  '#FF2079'
+]
 
 //Highest Score
 
@@ -102,11 +117,6 @@ function game() {
         clearInterval(scoreIntervalFuncID);
         setHighestScore();
         gameOver();
-
-        var newBoxArray = document.getElementsByClassName('box');
-        for(var i = 0; i<newBoxArray.length; i++) {
-          newBoxArray[i].remove();
-        }
       }
     }  
   }, 50);
@@ -119,8 +129,12 @@ function spawn() {
 
   var boxDiv = document.createElement("div");
   boxDiv.setAttribute("class", "box");
+
+  var boulderColorIndex = (Math.trunc(Math.random()*1000) % boulderColor.length);
+  boxDiv.style.backgroundColor = boulderColor[boulderColorIndex];
+  boxDiv.style.boxShadow = `0 0 2vh 0 ${boulderColor[boulderColorIndex]}`;
   
-  //Random Height for Boulders
+  //Random Top for Boulders
   var viewHeight = window.innerHeight;
   var randHeight = (Math.random()*3000) % (viewHeight);
   body.appendChild(boxDiv); //Adding new boulder
@@ -223,6 +237,14 @@ function gameOver() {
 
 
   ballE.remove();
+
+  //Remove existing Boulders Once Game Over
+  var boulderList = document.getElementsByClassName('box');
+  while(boulderList.length != 0) {
+    boulderList[0].remove();
+    boulderList = document.getElementsByClassName('box');
+  }
+
   document.getElementById('score').style.display = "none";
   document.getElementById("bg-pic-shade").style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
 }
