@@ -1,6 +1,7 @@
 //Highest Score
 var highScore = localStorage.getItem('highScore');
 var bestScore = document.getElementById('bestScore');
+
 if(localStorage.getItem('highScore') == null) {
   bestScore.innerHTML = '0';
   localStorage.setItem('highScore', 0);
@@ -144,6 +145,7 @@ function checkCollision(e1, e2) {
   2 - Electro
   3 - Dendro
   4 - Mutant Electro
+  5 - Geo
 */
 
 var bodyColor = 
@@ -192,9 +194,12 @@ function gameOver() {
   var scoreCard = document.getElementById('gameOver');
   scoreCard.style.display = "block";
   var scoreCardText= document.getElementById('gameOverText');
+  var encouragement;
+  encouragement = (score>=highScore)? "Yay! You got a new best score!" : "C'mon, beating records is what ";
+  document.getElementById("gameOverEncouragement").innerHTML = encouragement;
   scoreCardText.innerHTML = `
 Your Score: ${score} <br>
-Best Score: ${parseInt(highScore)}
+Best Score: ${parseInt(highScore)} <br><br>
   `;
   rocket.remove();
   document.getElementById('score').remove();
