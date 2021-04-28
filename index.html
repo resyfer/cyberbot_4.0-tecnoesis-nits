@@ -25,18 +25,19 @@
     <div id="bg-pic-shade"></div>
     <img src="./img/bgpic.jpg" alt="Image not supported">
   </div>
-  <div id="rocket-container">
-    <div id="rocket-body">
-      <div id="eye"></div>
-      <div id="arm"></div>
+  <div id="ballE">
+    <div id="ballEBody">
+      <div id="ballEEye"></div>
+      <div id="ballEArm"></div>
     </div>
   </div>
-  <div id="score">Your Score : <span id="myScore">0</span> / Best Score : <span id="bestScore">0</span></div>
+  <div id="score"><span id="myScoreDiv">Your Score : <span id="myScore">0</span></span> Best Score : <span id="bestScore">0</span></div>
   <div id="colorChange" onclick="colorChange()" title="Change Ball-E's color">
     <span class="material-icons">color_lens</span>
   </div>
   <div id="gameOver">
     <p id="gameOverText"></p>
+    <p id="gameOverEncouragement"></p>
     <div id="retry" onclick="retry()">Retry</div>
   </div>
   <div id="credits">
