@@ -1,25 +1,58 @@
-//Highest Score
-var highScore = localStorage.getItem('highScore');
-var bestScore = document.getElementById('bestScore');
+//DOM
+var ballE = document.getElementById("ballE");
+var ballEBody = document.getElementById('ballEBody');
+var ballEArm = document.getElementById('ballEArm');
 
-if(localStorage.getItem('highScore') == null) {
-  bestScore.innerHTML = '0';
-  localStorage.setItem('highScore', 0);
-} else {
-  bestScore.innerHTML = highScore;
-}
+var body = document.getElementsByTagName("body")[0];
 
+var myScore = document.getElementById("myScore");
+var highestScoreDiv = document.getElementById('bestScore');
+
+var scoreCard = document.getElementById('gameOver');
+var scoreCardText= document.getElementById('gameOverText');
+
+
+//Local Storage
+var highestScore = localStorage.getItem('highestScore');
+var ballEColor = localStorage.getItem('color');
+
+//Global Variables
 var spawnIntervalFuncID;
 var scoreIntervalFuncID;
 
-//Add Boulders
-var body = document.getElementsByTagName("body")[0];
-var spawnTime = (500/(2.3**(score/40))) + 100;
-var rocket = document.getElementById("rocket-container");
-
-//Score
-var myScore = document.getElementById("myScore");
 var score = parseInt(myScore.innerHTML);
+var spawnTime = (500/(2.3**(score/40))) + 100;
+
+var colorIndex;
+
+var bodyColor = 
+[
+  'linear-gradient(red, yellow)',
+  'linear-gradient(rgb(0, 189, 189), rgb(232, 250, 250))',
+  'linear-gradient(purple, rgb(175, 168, 175))',
+  'linear-gradient(rgb(102, 245, 50), rgb(145, 201, 141))',
+  'linear-gradient(rgb(224, 195, 7), rgb(204, 196, 143))'
+];
+var armColor =
+[
+  'linear-gradient(to right, red, yellow)',
+  'linear-gradient(to right, rgb(0, 189, 189), rgb(232, 250, 250))',
+  'linear-gradient(to right, purple, rgb(175, 168, 175)',
+  'linear-gradient(to right, rgb(102, 245, 50), rgb(145, 201, 141))',
+  'linear-gradient(to right, rgb(224, 195, 7), rgb(204, 196, 143))'
+]
+
+
+
+
+//Highest Score
+
+if(localStorage.getItem('highestScore') == null) {
+  highestScoreDiv.innerHTML = '0';
+  localStorage.setItem('highestScore', 0);
+} else {
+  highestScoreDiv.innerHTML = highestScore;
+}
 
 //Start Game
 function startGame() {
@@ -27,22 +60,23 @@ function startGame() {
   document.getElementById("title").remove();
   document.getElementById("intro").remove();
   document.getElementById("colorChange").remove();
+  document.getElementById("myScoreDiv").style.display = "block";
   game();
 };
 
 function game() {
 
-  //Rocket Move
-
+  //Ball-E Move With Cursor
   window.addEventListener('mousemove', e => {
-    rocket.style.left = e.pageX + 'px';
-    rocket.style.top = e.pageY + 'px';
+    ballE.style.left = e.pageX + 'px';
+    ballE.style.top = e.pageY + 'px';
   });
   
+  //Increase Score As a Function of Time
   scoreIntervalFuncID = setInterval(() => {
     score+=1;
     myScore.innerHTML = score;
-  }, 500);
+  }, 250);
 
   //Boulder Remove After Animation Completion
   setInterval(() => {
@@ -56,18 +90,18 @@ function game() {
     }
   }, 200);
 
+  //Spawn Boulders
   spawn();
 
+  //Check for collision with boulder and Ball-E
   setInterval(() => {
     var boxList = document.getElementsByClassName('box');
     for(var i = 0; i<boxList.length; i++) {
-      if(checkCollision(boxList[i], rocket) == true) {
-        // alert("Your Score: " + score);
+      if(checkCollision(boxList[i], ballE) == true) {
         clearInterval(spawnIntervalFuncID);
         clearInterval(scoreIntervalFuncID);
+        setHighestScore();
         gameOver();
-        setHighScore();
-        //location.reload();
 
         var newBoxArray = document.getElementsByClassName('box');
         for(var i = 0; i<newBoxArray.length; i++) {
@@ -78,7 +112,7 @@ function game() {
   }, 50);
 }
 
-
+//Boulder Spawn Function
 function spawn() {
 
   clearInterval(spawnIntervalFuncID);
@@ -96,35 +130,35 @@ function spawn() {
   lastBoulder.style.top = randHeight + "px";
   
   //Reducing transition time as time increases
-  var scoreMultiplier = (7/(2.3**(score/100))) + 0.5;
-  lastBoulder.style.animationDuration = scoreMultiplier + 's';
+  var transitionTimeReducer = (7/(2.3**(score/100))) + 0.5; //Reducing transition time of boulders
+  lastBoulder.style.animationDuration = transitionTimeReducer + 's';
 
-  spawnTime = (1500/(2.3**(score/40))) + 100;
+  spawnTime = (1500/(2.3**(score/60))) + 50;
 
   spawnIntervalFuncID = setInterval(spawn, spawnTime);
 };
 
-function setHighScore() { 
-  if(localStorage.getItem('highScore') == null) {
-    localStorage.setItem('highScore', score);
+
+//Set the Best Score Function
+function setHighestScore() { 
+  if(localStorage.getItem('highestScore') == null) {
+
+    localStorage.setItem('highestScore', score);
+    
   } else {
-    localStorage.setItem('highScore', Math.max(score, highScore));
-    highScore = localStorage.getItem('highScore');
+
+    highestScore = Math.max(score, highestScore);
+    localStorage.setItem('highestScore', highestScore);
   }
-  bestScore.innerHTML = highScore;
+  highestScoreDiv.innerHTML = highestScore;
 }
 
-//Collision Check
-function checkCollision(e1, e2) {
-  if (e1.length && e1.length > 1) {
-    e1 = e1[0];
-  }
-  if (e2.length && e2.length > 1){
-    e2 = e2[0];
-  }
-  const rect1 = e1 instanceof Element ? e1.getBoundingClientRect() : false;
-  const rect2 = e2 instanceof Element ? e2.getBoundingClientRect() : false;
- 
+//Collision Check Function
+function checkCollision(div1, div2) {
+
+  var rect1 = div1.getBoundingClientRect();
+  var rect2 = div2.getBoundingClientRect();
+
   var overlap = false;
  
   if (rect1 && rect2) {
@@ -138,49 +172,33 @@ function checkCollision(e1, e2) {
   return overlap;
 };
 
-//Change Color
-/*
-  0 - Pyro
-  1 - Anemo
-  2 - Electro
-  3 - Dendro
-  4 - Mutant Electro
-  5 - Geo
-*/
 
-var bodyColor = 
-[
-  'linear-gradient(red, yellow)',
-  'linear-gradient(rgb(0, 189, 189), rgb(232, 250, 250))',
-  'linear-gradient(purple, rgb(175, 168, 175))',
-  'linear-gradient(rgb(102, 245, 50), rgb(145, 201, 141))',
-  'linear-gradient(rgb(224, 195, 7), rgb(204, 196, 143))'
-];
+/* Change Ball-E Color */
 
-var armColor =
-[
-  'linear-gradient(to right, red, yellow)',
-  'linear-gradient(to right, rgb(0, 189, 189), rgb(232, 250, 250))',
-  'linear-gradient(to right, purple, rgb(175, 168, 175)',
-  'linear-gradient(to right, rgb(102, 245, 50), rgb(145, 201, 141))',
-  'linear-gradient(to right, rgb(224, 195, 7), rgb(204, 196, 143))'
-]
+  /*
+    Color Codes as per index:
+    
+    0 - Pyro
+    1 - Anemo
+    2 - Electro
+    3 - Dendro
+    4 - Mutant Electro
+    5 - Geo
+  */
 
-var ballEBody = document.getElementById('rocket-body');
-var ballEArm = document.getElementById('arm');
-
-var ballEColor = localStorage.getItem('color');
-var colorIndex;
-
+//Initial Ball-E Color (remembers choice)
 if(localStorage.getItem("color") == null) {
-  localStorage.setItem("color", "0");
+
   colorIndex = 0;
+  localStorage.setItem("color", colorIndex);
+
 } else {
   colorIndex = parseInt(ballEColor);
   ballEBody.style.backgroundImage = bodyColor[colorIndex];
   ballEArm.style.backgroundImage = armColor[colorIndex];
 }
 
+//Color Change Function
 function colorChange() {
   colorIndex++;
   colorIndex%=bodyColor.length;
@@ -191,18 +209,21 @@ function colorChange() {
 
 //Game Over
 function gameOver() {
-  var scoreCard = document.getElementById('gameOver');
   scoreCard.style.display = "block";
-  var scoreCardText= document.getElementById('gameOverText');
+
   var encouragement;
-  encouragement = (score>=highScore)? "Yay! You got a new best score!" : "C'mon, beating records is what ";
+  encouragement = (score>=highestScore)? "Yay! You got a new best score!" : "C'mon, beating records is what we're here for";
   document.getElementById("gameOverEncouragement").innerHTML = encouragement;
+
+
   scoreCardText.innerHTML = `
-Your Score: ${score} <br>
-Best Score: ${parseInt(highScore)} <br><br>
+    Your Score: ${score} <br>
+    Best Score: ${parseInt(highestScore)} <br><br>
   `;
-  rocket.remove();
-  document.getElementById('score').remove();
+
+
+  ballE.remove();
+  document.getElementById('score').style.display = "none";
   document.getElementById("bg-pic-shade").style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
 }
 

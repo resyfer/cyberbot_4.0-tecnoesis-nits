@@ -2,19 +2,20 @@
   --neon: #15F4EE;
   --neon-80: rgba(21, 244, 237, 0.8);
   --neon-50: rgba(21, 244, 237, 0.5);
-  --rocket-body: #9c00aa;
-}
-
-body {
-  max-height: 100vh;
-  max-width: 100%;
-  overflow: hidden;
+  --bg-img-tint: rgba(0, 0, 0, 0.4);
+  --ball-E-border: rgb(151, 0, 0);
 }
 
 * {
   margin: 0;
   padding: 0;
   font-family: 'Poppins', sans-serif;
+}
+
+body {
+  max-height: 100vh;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 div#bg-pic-container {
@@ -37,7 +38,7 @@ div#bg-pic-container div#bg-pic-shade {
           transform: translate(-50%, -50%);
   height: 100vh;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: var(--bg-img-tint);
 }
 
 div#bg-pic-container img {
@@ -102,7 +103,7 @@ div#start:hover {
           transition-duration: 0.3s;
 }
 
-div#rocket-container {
+div#ballE {
   position: absolute;
   height: 15vh;
   aspect-ratio: 1/1;
@@ -113,7 +114,7 @@ div#rocket-container {
   cursor: none;
 }
 
-div#rocket-container div#rocket-body {
+div#ballE div#ballEBody {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -121,7 +122,7 @@ div#rocket-container div#rocket-body {
           transform: translate(-50%, -50%);
   background-image: -webkit-gradient(linear, left top, left bottom, from(red), to(yellow));
   background-image: linear-gradient(red, yellow);
-  border: 0.2vh solid #970000;
+  border: 0.2vh solid var(--ball-E-border);
   height: 95%;
   aspect-ratio: 1/1;
   border-radius: 50%;
@@ -133,16 +134,16 @@ div#rocket-container div#rocket-body {
           animation-iteration-count: infinite;
 }
 
-div#rocket-container div#rocket-body div#eye {
+div#ballE div#ballEBody div#ballEEye {
   position: absolute;
   top: 50%;
-  right: 12.5%;
+  right: 7%;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
   height: 5.5vh;
   width: 2.5vh;
   background-color: rgba(255, 255, 255, 0.9);
-  border: 0.4vh solid #970000;
+  border: 0.4vh solid var(--ball-E-border);
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   -webkit-animation-name: eyeBlink;
@@ -156,7 +157,7 @@ div#rocket-container div#rocket-body div#eye {
   border-radius: 50%;
 }
 
-div#rocket-container div#rocket-body div#arm {
+div#ballE div#ballEBody div#ballEArm {
   position: absolute;
   height: 20%;
   width: 55%;
@@ -164,7 +165,7 @@ div#rocket-container div#rocket-body div#arm {
   left: 30%;
   background-image: -webkit-gradient(linear, left top, right top, from(red), to(yellow));
   background-image: linear-gradient(to right, red, yellow);
-  border: 0.2vh solid #970000;
+  border: 0.2vh solid var(--ball-E-border);
   -webkit-transform: rotate(45deg);
           transform: rotate(45deg);
   -webkit-transform-origin: center left;
@@ -240,8 +241,8 @@ div#rocket-container div#rocket-body div#arm {
             transform: translate(-50%, -50%) rotate(0deg);
     border-radius: 50%;
     background-color: rgba(255, 255, 255, 0.9);
-    border-left: 0.4vh solid #970000;
-    border-bottom: 0.4vh solid #970000;
+    border-left: 0.4vh solid var(--ball-E-border);
+    border-bottom: 0.4vh solid var(--ball-E-border);
   }
   71% {
     background-color: rgba(255, 255, 255, 0);
@@ -273,8 +274,8 @@ div#rocket-container div#rocket-body div#arm {
             transform: translate(-50%, -50%) rotate(0deg);
     border-radius: 50%;
     background-color: rgba(255, 255, 255, 0.9);
-    border-left: 0.4vh solid #970000;
-    border-bottom: 0.4vh solid #970000;
+    border-left: 0.4vh solid var(--ball-E-border);
+    border-bottom: 0.4vh solid var(--ball-E-border);
   }
 }
 
@@ -316,8 +317,8 @@ div#rocket-container div#rocket-body div#arm {
             transform: translate(-50%, -50%) rotate(0deg);
     border-radius: 50%;
     background-color: rgba(255, 255, 255, 0.9);
-    border-left: 0.4vh solid #970000;
-    border-bottom: 0.4vh solid #970000;
+    border-left: 0.4vh solid var(--ball-E-border);
+    border-bottom: 0.4vh solid var(--ball-E-border);
   }
   71% {
     background-color: rgba(255, 255, 255, 0);
@@ -349,8 +350,8 @@ div#rocket-container div#rocket-body div#arm {
             transform: translate(-50%, -50%) rotate(0deg);
     border-radius: 50%;
     background-color: rgba(255, 255, 255, 0.9);
-    border-left: 0.4vh solid #970000;
-    border-bottom: 0.4vh solid #970000;
+    border-left: 0.4vh solid var(--ball-E-border);
+    border-bottom: 0.4vh solid var(--ball-E-border);
   }
 }
 
@@ -361,7 +362,12 @@ div#score {
   -webkit-transform: translate(-50%, 0);
           transform: translate(-50%, 0);
   color: var(--neon);
-  font-size: 1.5rem;
+  font-size: 1.1rem;
+  text-align: center;
+}
+
+div#score span#myScoreDiv {
+  display: none;
 }
 
 div.box {
