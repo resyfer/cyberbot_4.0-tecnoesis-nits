@@ -11,6 +11,9 @@ var highestScoreDiv = document.getElementById('bestScore');
 var scoreCard = document.getElementById('gameOver');
 var scoreCardText= document.getElementById('gameOverText');
 
+var musicTrack = document.getElementById('musicTrack');
+var isMute = true;
+
 
 //Local Storage
 var highestScore = localStorage.getItem('highestScore');
@@ -58,7 +61,22 @@ var boulderColor =
   '#F21A1D',
   '#7FFF00',
   '#FF2079'
-]
+];
+
+//Loader Circle Animation
+var loaderCircles = document.getElementsByClassName('circle');
+var circleAnimationDelay = -3.5;
+
+for(var i = 0; i<loaderCircles.length; i++) {
+  loaderCircles[i].style.animationDelay = `${circleAnimationDelay}s`;
+  circleAnimationDelay+=0.5;
+}
+
+//Body On Load Function
+function bodyLoad(){
+  document.getElementById('loaderContainer').style.display = "none";
+  document.getElementById('title').style.top = "17.5%";
+}
 
 //Highest Score
 
@@ -75,6 +93,7 @@ function startGame() {
   document.getElementById("title").remove();
   document.getElementById("intro").remove();
   document.getElementById("colorChange").remove();
+  document.getElementById("musicCredits").remove();
   document.getElementById("myScoreDiv").style.display = "block";
   game();
 };
@@ -252,4 +271,20 @@ function gameOver() {
 //Retry
 function retry() {
   location.reload();
+}
+
+//Music
+musicTrack.volume = 0.4;
+function music() {
+  if(isMute) {
+    document.getElementById('muteOff').style.display = "block";
+    document.getElementById('muteOn').style.display = "none";
+    isMute = false;
+    musicTrack.play();
+  } else {
+    document.getElementById('muteOff').style.display = "none";
+    document.getElementById('muteOn').style.display = "block";
+    isMute = true;
+    musicTrack.pause();
+  }
 }
