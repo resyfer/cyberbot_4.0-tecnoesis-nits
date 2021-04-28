@@ -377,12 +377,11 @@ div.box {
   -webkit-transform: translate(0, -50%);
           transform: translate(0, -50%);
   height: 4rem;
-  aspect-ratio: 1/1;
+  width: 4rem;
   border-radius: 0.4rem;
   background-color: var(--neon);
-  border: 0.2vh solid #0077ff;
-  -webkit-box-shadow: 0 0 1vh 0 var(--neon);
-          box-shadow: 0 0 1vh 0 var(--neon);
+  -webkit-box-shadow: 0 0 1.5vh 0 var(--neon);
+          box-shadow: 0 0 1.5vh 0 var(--neon);
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   -webkit-animation-name: boulder;
