@@ -289,7 +289,7 @@ function retry() {
 }
 
 //Music
-musicTrack.volume = 0.4;
+musicTrack.volume = 0.7;
 var flag = (isMute)? 0 : 1;
 
 if(isMute == 0) {
