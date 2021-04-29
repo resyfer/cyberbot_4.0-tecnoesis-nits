@@ -611,7 +611,7 @@ div#credits a {
 div#music {
   position: absolute;
   top: 2%;
-  right: 2%;
+  left: 2%;
   height: 8vh;
   aspect-ratio: 1/1;
   border-radius: 50%;
