@@ -12,12 +12,21 @@ var scoreCard = document.getElementById('gameOver');
 var scoreCardText= document.getElementById('gameOverText');
 
 var musicTrack = document.getElementById('musicTrack');
-var isMute = true;
+var muteOff = document.getElementById('muteOff');
+var muteOn = document.getElementById('muteOn');
 
 
 //Local Storage
 var highestScore = localStorage.getItem('highestScore');
 var ballEColor = localStorage.getItem('color');
+
+var isMute;
+if(localStorage.getItem('mute') == null) {
+  isMute = 0;
+  localStorage.setItem('mute', isMute);
+} else {
+  isMute = localStorage.getItem('mute');
+}
 
 //Global Variables
 var spawnIntervalFuncID;
@@ -76,6 +85,7 @@ for(var i = 0; i<loaderCircles.length; i++) {
 function bodyLoad(){
   document.getElementById('loaderContainer').style.display = "none";
   document.getElementById('title').style.top = "17.5%";
+  document.getElementById('music').style.zIndex = "100";
 }
 
 //Highest Score
@@ -93,12 +103,17 @@ function startGame() {
   document.getElementById("title").remove();
   document.getElementById("intro").remove();
   document.getElementById("colorChange").remove();
-  document.getElementById("musicCredits").remove();
+  document.getElementById("musicCredits").style.display = "block";
   document.getElementById("myScoreDiv").style.display = "block";
   game();
 };
 
 function game() {
+
+  //Play music if unmute
+  if(isMute == false) {
+    musicTrack.play();
+  }
 
   //Ball-E Move With Cursor
   window.addEventListener('mousemove', e => {
@@ -275,16 +290,28 @@ function retry() {
 
 //Music
 musicTrack.volume = 0.4;
+var flag = (isMute)? 0 : 1;
+
+if(isMute == 0) {
+  muteOff.style.display = "block";
+  muteOn.style.display = "none";
+} else {
+  muteOff.style.display = "none";
+  muteOn.style.display = "block";
+}
+
 function music() {
-  if(isMute) {
-    document.getElementById('muteOff').style.display = "block";
-    document.getElementById('muteOn').style.display = "none";
-    isMute = false;
-    musicTrack.play();
+  if(isMute && flag!=0) {
+    muteOff.style.display = "block";
+    muteOn.style.display = "none";
+    isMute = 0;
+    if(flag != 0) musicTrack.play();
   } else {
-    document.getElementById('muteOff').style.display = "none";
-    document.getElementById('muteOn').style.display = "block";
-    isMute = true;
+    muteOff.style.display = "none";
+    muteOn.style.display = "block";
+    isMute = 1;
     musicTrack.pause();
+    flag = 1;
   }
+  localStorage.setItem('mute', isMute);
 }
