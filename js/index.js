@@ -15,6 +15,7 @@ var musicTrack = document.getElementById('musicTrack');
 var muteOff = document.getElementById('muteOff');
 var muteOn = document.getElementById('muteOn');
 
+var musicCredits = document.getElementById("musicCredits");
 
 //Local Storage
 var highestScore = localStorage.getItem('highestScore');
@@ -103,7 +104,7 @@ function startGame() {
   document.getElementById("title").remove();
   document.getElementById("intro").remove();
   document.getElementById("colorChange").remove();
-  document.getElementById("musicCredits").style.display = "block";
+  musicCredits.style.display = "block";
   document.getElementById("myScoreDiv").style.display = "block";
   game();
 };
@@ -112,7 +113,7 @@ function game() {
 
   //Play music if unmute
   if(isMute == false) {
-    musicTrack.play();
+    musicChange();
   }
 
   //Ball-E Move With Cursor
@@ -288,9 +289,9 @@ function retry() {
   location.reload();
 }
 
-//Music
+//Music Mute
 musicTrack.volume = 0.7;
-var flag = (isMute)? 0 : 1;
+var muteFlag = (isMute)? 0 : 1;
 
 if(isMute == 0) {
   muteOff.style.display = "block";
@@ -301,17 +302,61 @@ if(isMute == 0) {
 }
 
 function music() {
-  if(isMute && flag!=0) {
+  
+  if(isMute && muteFlag!=0) {
     muteOff.style.display = "block";
     muteOn.style.display = "none";
     isMute = 0;
-    if(flag != 0) musicTrack.play();
+    musicChange();
   } else {
     muteOff.style.display = "none";
     muteOn.style.display = "block";
     isMute = 1;
     musicTrack.pause();
-    flag = 1;
+    muteFlag = 1;
   }
   localStorage.setItem('mute', isMute);
+}
+
+// Music Player Change
+var musicListName = [
+  `Invitation to Windblume, Part 2 - Thorny Benevolence, Genshin Impact`,
+  `Ocean - Lost Wolves & Glasscat`,
+  `Qilin's Prance - Plenilune Gaze`,
+  `Dancin - Aaron Smith, KRONO Remix`,
+];
+
+var musicListSrc = [
+  `bg`,
+  `ocean`,
+  `ganyu`,
+  `dancin`
+];
+
+var musicCurrentIndex = -1;
+var musicNewIndex;
+var musicDuration;
+var musicIntervalFuncID;
+var musicChangeFlag = 0;
+var musicName = document.getElementById('musicName');
+
+function musicChange() {
+  musicCredits.style.display = "block";
+  do {
+    musicNewIndex = Math.trunc(Math.random()*10) % musicListSrc.length;  
+  } while (musicNewIndex == musicCurrentIndex);
+
+  musicTrack.setAttribute('src', `music/${musicListSrc[musicNewIndex]}.mp3`);
+  musicTrack.play();
+  musicCurrentIndex = musicNewIndex;
+
+  musicTrack.addEventListener('loadedmetadata', function() {
+    musicDuration = musicTrack.duration;
+  });
+
+  musicName.innerHTML = musicListName[musicNewIndex];
+
+  musicTrack.addEventListener('ended', () => {
+    musicChange();
+  });
 }
