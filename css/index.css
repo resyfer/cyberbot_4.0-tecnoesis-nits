@@ -567,7 +567,7 @@ div#gameOver p#gameOverEncouragement {
 
 div#gameOver div#retry {
   position: absolute;
-  top: 75%;
+  top: 72.5%;
   left: 50%;
   -webkit-transform: translate(-50%, 0);
           transform: translate(-50%, 0);
@@ -581,6 +581,7 @@ div#gameOver div#retry {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   border: 0.2rem solid var(--neon-50);
+  border-radius: 2vh;
 }
 
 div#gameOver div#retry:hover {
@@ -634,14 +635,6 @@ div#music:hover span {
   color: black;
 }
 
-div#music:hover span#muteOff {
-  display: block;
-}
-
-div#music:hover span#muteOn {
-  display: none;
-}
-
 div#music span {
   position: absolute;
   top: 50%;
@@ -655,11 +648,11 @@ div#music span {
 }
 
 div#music span#muteOff {
-  display: none;
+  display: block;
 }
 
 div#music span#muteOn {
-  display: block;
+  display: none;
 }
 
 div#musicCredits {
@@ -670,5 +663,6 @@ div#musicCredits {
           transform: translate(-50%, -50%);
   color: rgba(255, 255, 0, 0.6);
   font-size: 1rem;
+  display: none;
 }
 /*# sourceMappingURL=index.css.map */
