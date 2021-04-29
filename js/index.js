@@ -290,7 +290,7 @@ function retry() {
 }
 
 //Music Mute
-musicTrack.volume = 0.7;
+musicTrack.volume = 0.4;
 var muteFlag = (isMute)? 0 : 1;
 
 if(isMute == 0) {
@@ -327,10 +327,10 @@ var musicListName = [
 ];
 
 var musicListSrc = [
-  `bg`,
-  `ocean`,
-  `ganyu`,
-  `dancin`
+  `rosaria.mp3`,
+  `ocean.mp3`,
+  `ganyu.mp3`,
+  `dancin.m4a`
 ];
 
 var musicCurrentIndex = -1;
@@ -346,7 +346,7 @@ function musicChange() {
     musicNewIndex = Math.trunc(Math.random()*10) % musicListSrc.length;  
   } while (musicNewIndex == musicCurrentIndex);
 
-  musicTrack.setAttribute('src', `music/${musicListSrc[musicNewIndex]}.mp3`);
+  musicTrack.setAttribute('src', `music/${musicListSrc[musicNewIndex]}`);
   musicTrack.play();
   musicCurrentIndex = musicNewIndex;
 
