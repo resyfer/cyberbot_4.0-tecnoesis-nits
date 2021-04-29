@@ -1,26 +1,38 @@
-//DOM
+/* DOM */
+
+  //Ball-E
 var ballE = document.getElementById("ballE");
 var ballEBody = document.getElementById('ballEBody');
 var ballEArm = document.getElementById('ballEArm');
 
+  //HTML Body
 var body = document.getElementsByTagName("body")[0];
 
+  //Score
 var myScore = document.getElementById("myScore");
 var highestScoreDiv = document.getElementById('bestScore');
 
+    //Scorecard
 var scoreCard = document.getElementById('gameOver');
 var scoreCardText= document.getElementById('gameOverText');
 
+  //Music
 var musicTrack = document.getElementById('musicTrack');
 var muteOff = document.getElementById('muteOff');
 var muteOn = document.getElementById('muteOn');
 
+    //Music Credits
 var musicCredits = document.getElementById("musicCredits");
 
-//Local Storage
+/* Local Storage */
+
+  //Best Score
 var highestScore = localStorage.getItem('highestScore');
+
+  //Ball-E Color
 var ballEColor = localStorage.getItem('color');
 
+  //Mute
 var isMute;
 if(localStorage.getItem('mute') == null) {
   isMute = 0;
@@ -29,48 +41,53 @@ if(localStorage.getItem('mute') == null) {
   isMute = localStorage.getItem('mute');
 }
 
-//Global Variables
+/* Global Variables */
+
+  //setInterval IDs
 var spawnIntervalFuncID;
 var scoreIntervalFuncID;
 
+  //Score
 var score = parseInt(myScore.innerHTML);
 var spawnTime = (500/(2.3**(score/40))) + 100;
 
+  // Ball-E Color
 var colorIndex;
 
+    //Ball-E Body Color
 var bodyColor = 
 [
-  'linear-gradient(red, yellow)',
-  'linear-gradient(rgb(0, 189, 189), rgb(232, 250, 250))',
-  'linear-gradient(purple, rgb(175, 168, 175))',
-  'linear-gradient(rgb(102, 245, 50), rgb(145, 201, 141))',
-  'linear-gradient(rgb(224, 195, 7), rgb(204, 196, 143))'
+  'linear-gradient(rgba(255, 0, 0, 100), rgba(255, 255, 0, 100))',
+  'linear-gradient(rgba(0, 189, 189, 100), rgba(232, 250, 250, 100))',
+  'linear-gradient(rgba(128, 0, 128, 100), rgba(175, 168, 175, 100))',
+  'linear-gradient(rgba(102, 245, 50, 100), rgba(145, 201, 141, 100))',
+  'linear-gradient(rgba(224, 195, 7, 100), rgba(204, 196, 143, 100))'
 ];
 var armColor =
 [
-  'linear-gradient(to right, red, yellow)',
-  'linear-gradient(to right, rgb(0, 189, 189), rgb(232, 250, 250))',
-  'linear-gradient(to right, purple, rgb(175, 168, 175)',
-  'linear-gradient(to right, rgb(102, 245, 50), rgb(145, 201, 141))',
-  'linear-gradient(to right, rgb(224, 195, 7), rgb(204, 196, 143))'
+  'linear-gradient(to right, rgba(255, 0, 0, 100), rgba(255, 255, 0, 100))',
+  'linear-gradient(to right, rgba(0, 189, 189, 100), rgba(232, 250, 250, 100))',
+  'linear-gradient(to right, rgba(128, 0, 128, 100), rgba(175, 168, 175, 100)',
+  'linear-gradient(to right, rgba(102, 245, 50, 100), rgba(145, 201, 141, 100))',
+  'linear-gradient(to right, rgba(224, 195, 7, 100), rgba(204, 196, 143, 100))'
 ]
 
 var boulderColor =
 [
-  '#15F4EE',
-  '#FFFF33',
-  '#00FF66',
-  '#FF00FF',
-  '#9D00FF',
-  '#7122FA',
-  '#A5D8F3',
-  '#13CA91',
-  '#F85125',
-  '#EBF875',
-  '#D9EB4B',
-  '#F21A1D',
-  '#7FFF00',
-  '#FF2079'
+  'rgba(21, 244, 238, 100)',
+  'rgba(255, 255, 51, 100)',
+  'rgba(0, 255, 102, 100)',
+  'rgba(255, 0, 255, 100)',
+  'rgba(157, 0, 255, 100)',
+  'rgba(113, 34, 250, 100)',
+  'rgba(165, 216, 243, 100)',
+  'rgba(19, 202, 145, 100)',
+  'rgba(248, 81, 37, 100)',
+  'rgba(235, 248, 117, 100)',
+  'rgba(217, 235, 75, 100)',
+  'rgba(242, 26, 29, 100)',
+  'rgba(127, 255, 0, 100)',
+  'rgba(255, 32, 121, 100)'
 ];
 
 //Loader Circle Animation
@@ -270,7 +287,7 @@ function gameOver() {
     Best Score: ${parseInt(highestScore)} <br><br>
   `;
 
-
+  //Remove Ball-E
   ballE.remove();
 
   //Remove existing Boulders Once Game Over
@@ -289,7 +306,9 @@ function retry() {
   location.reload();
 }
 
-//Music Mute
+/* Music */ 
+//Mute
+  //Mute Variables
 musicTrack.volume = 0.4;
 var muteFlag = (isMute)? 0 : 1;
 
@@ -301,8 +320,8 @@ if(isMute == 0) {
   muteOn.style.display = "block";
 }
 
-function music() {
-  
+  //Mute Function
+function mute() {
   if(isMute && muteFlag!=0) {
     muteOff.style.display = "block";
     muteOn.style.display = "none";
@@ -318,7 +337,9 @@ function music() {
   localStorage.setItem('mute', isMute);
 }
 
-// Music Player Change
+// Music Track Change
+
+  //Music Name List
 var musicListName = [
   `Invitation to Windblume, Part 2 - Thorny Benevolence, Genshin Impact`,
   `Ocean - Lost Wolves & Glasscat`,
@@ -326,6 +347,7 @@ var musicListName = [
   `Dancin - Aaron Smith, KRONO Remix`,
 ];
 
+  //Music Source List
 var musicListSrc = [
   `rosaria.mp3`,
   `ocean.mp3`,
@@ -333,6 +355,7 @@ var musicListSrc = [
   `dancin.m4a`
 ];
 
+  //Music Track Change Variables
 var musicCurrentIndex = -1;
 var musicNewIndex;
 var musicDuration;
@@ -340,6 +363,7 @@ var musicIntervalFuncID;
 var musicChangeFlag = 0;
 var musicName = document.getElementById('musicName');
 
+  //Music Change Function
 function musicChange() {
   musicCredits.style.display = "block";
   do {

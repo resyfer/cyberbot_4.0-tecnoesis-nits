@@ -4,19 +4,26 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
   <title>Space Maneuver</title>
-  <link rel="stylesheet" href="css/index.css">
+
+  <!-- Google Fonts and Material Icons -->
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/index.css">
 
+  <!-- Favicon -->
   <link rel="shortcut icon" href="img/favicon.png" type="image/png">
 </head>
 <body onload="bodyLoad()">
-  <!--
-    font-family: 'Poppins', sans-serif;
-  -->
+
+  <!-- Loader -->
   <div id="loaderContainer">
+
+    <!-- Loader Ripples -->
     <div id="circleContainer">
       <div class="circle"></div>
       <div class="circle"></div>
@@ -27,47 +34,85 @@
       <div class="circle"></div>
       <div class="circle"></div>
     </div>
+
     <div id="loading">
       Loading ...
     </div>
   </div>
+
+  <!-- Title -->
   <div id="title">Space Maneuver</div>
+
+  <!-- Intro -->
   <div id="intro">
     Somehow, Ball-E found himself stranded inside an unknown asteroid field.
     <br>
     Ball-E is pleading for your help, will you be willing to help him survive?
   </div>
+
+  <!-- Game Start Button -->
   <div id="start" onclick="startGame()">Start</div>
+
+  <!-- Background Picture-->
   <div id="bg-pic-container">
     <div id="bg-pic-shade"></div>
     <img src="./img/bgpic.jpg" alt="Image not supported">
   </div>
+
+  <!-- Ball-E -->
   <div id="ballE">
     <div id="ballEBody">
       <div id="ballEEye"></div>
       <div id="ballEArm"></div>
     </div>
   </div>
-  <div id="score"><span id="myScoreDiv">Your Score : <span id="myScore">0</span></span> Best Score : <span id="bestScore">0</span></div>
+
+  <!-- Score Counter -->
+  <div id="score">
+
+    <!-- Current Score -->
+    <span id="myScoreDiv">
+      Your Score : <span id="myScore">0</span>
+    </span>
+
+    <!-- Best Score -->
+    Best Score : <span id="bestScore">0</span>
+  </div>
+
+  <!-- Change Ball-E Color -->
   <div id="colorChange" onclick="colorChange()" title="Change Ball-E's color">
     <span class="material-icons">color_lens</span>
   </div>
+
+  <!-- Game Over Screen-->
   <div id="gameOver">
     <p id="gameOverText"></p>
     <p id="gameOverEncouragement"></p>
     <div id="retry" onclick="retry()">Retry</div>
   </div>
-  <div id="music" onclick="music()">
+
+  <!-- Music -->
+
+    <!-- Music Mute On/Off -->
+  <div id="music" onclick="mute()">
     <span class="material-icons" id="muteOff">volume_up</span>
     <span class="material-icons" id="muteOn">volume_off</span>
   </div>
+
+    <!-- Music Credits-->
   <div id="musicCredits">
     Music:&emsp;<span id="musicName">To Windblume - Thorny Benevolence, Genshin Impact, Mihoyo</span>
   </div>
+
+    <!-- Music Track -->
   <audio id="musicTrack"></audio>
+
+  <!-- Creator Credits-->
   <div id="credits">
     Made by <a href="https://github.com/resyfer" target="_blank">resyfer (Saurav Pal)</a>
   </div>
 </body>
+
+  <!-- JS -->
   <script src="js/index.js"></script>
 </html>
